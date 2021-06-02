@@ -157,6 +157,9 @@
             "config/packages/fos_ckeditor.yaml"
         ]
     },
+    "fzaninotto/faker": {
+        "version": "v1.9.2"
+    },
     "gedmo/doctrine-extensions": {
         "version": "v3.0.5"
     },
@@ -227,6 +230,9 @@
         "files": [
             "config/packages/lexik_jwt_authentication.yaml"
         ]
+    },
+    "monolog/monolog": {
+        "version": "1.26.1"
     },
     "myclabs/deep-copy": {
         "version": "1.10.2"
@@ -332,6 +338,9 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "rollerworks/password-strength-validator": {
+        "version": "v1.4.0"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
@@ -610,6 +619,24 @@
     },
     "symfony/mime": {
         "version": "v4.4.25"
+    },
+    "symfony/monolog-bridge": {
+        "version": "v4.4.25"
+    },
+    "symfony/monolog-bundle": {
+        "version": "3.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.7",
+            "ref": "329f6a5ef2e7aa033f802be833ef8d1268dd0848"
+        },
+        "files": [
+            "config/packages/dev/monolog.yaml",
+            "config/packages/prod/deprecations.yaml",
+            "config/packages/prod/monolog.yaml",
+            "config/packages/test/monolog.yaml"
+        ]
     },
     "symfony/options-resolver": {
         "version": "v4.4.25"
