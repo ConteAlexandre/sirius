@@ -1,21 +1,22 @@
-#Api-CRM
-##Recover the depot with git
+# Api-CRM
+
+## Recover the depot with git
 
     SSH : git clone git@github.com:ConteAlexandre/sirius.git
     HTTPS : git clone https://github.com/ConteAlexandre/sirius.git
 
-###First step
+### First step
 
 Tap the command:
 ```
 composer install
 ```
-###Second step
+### Second step
 
 Create the file .env.local
 Copy the content .env in .env.local
 
-###Third step
+### Third step
 
 Change the DATABASE_URL with the good ID
 And write command:
@@ -27,7 +28,7 @@ or
 php bin/console d:d:c
 ```
 
-###Four step
+### Four step
 
 Update your database with entity with this command
 ```
@@ -38,7 +39,7 @@ or
 php bin/console d:s:u --force
 ```
 
-###Five step
+### Five step
 
 Load fixtures in the database with this command
 ```
@@ -49,14 +50,14 @@ or
 php bin/console d:f:l
 ```
 
-###Six step
+### Six step
 
 Run the application with this command
 ```
 php -S localhost:8000 -t public
 ```
 
-###Seven step
+### Seven step
 
 Create user admin
 
@@ -71,7 +72,7 @@ php bin/console create:admin:user
 
 Follow instruction
 
-###Launch Test
+### Launch Test
 
 For launch test in local, execute this command:
 ```
