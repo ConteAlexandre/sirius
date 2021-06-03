@@ -6,29 +6,43 @@ use App\Repository\SkillRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=SkillRepository::class)
  */
 class Skill
 {
+    use TimestampableEntity,
+        BlameableEntity;
+
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="id")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100, name="name")
      */
     private $name;
 
     /**
+     * @var User
+     *
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="skills")
      */
     private $users;
 
+    /**
+     * Skill constructor.
+     */
     public function __construct()
     {
         $this->users = new ArrayCollection();

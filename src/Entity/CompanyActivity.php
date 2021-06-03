@@ -2,53 +2,83 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EnabledEntityTrait;
 use App\Repository\CompanyActivityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CompanyActivityRepository::class)
  */
 class CompanyActivity
 {
+    use TimestampableEntity,
+        BlameableEntity,
+        EnabledEntityTrait;
+
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="id")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @var string
+     *
+     * @ORM\Column(type="string", length=150, name="name")
      */
     private $name;
 
     /**
+     * @var User
+     *
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="companyActivity")
      */
     private $users;
 
+    /**
+     * CompanyActivity constructor.
+     */
     public function __construct()
     {
         $this->users = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->getName();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -64,6 +94,11 @@ class CompanyActivity
         return $this->users;
     }
 
+    /**
+     * @param User $user
+     *
+     * @return $this
+     */
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
@@ -74,6 +109,11 @@ class CompanyActivity
         return $this;
     }
 
+    /**
+     * @param User $user
+     *
+     * @return $this
+     */
     public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
