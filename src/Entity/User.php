@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Entity\Traits\EnabledEntityTrait;
 use App\Entity\Traits\RolableEntityTrait;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -41,11 +43,27 @@ class User implements UserInterface
     private $username;
 
     /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $lastName;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=100, name="company")
      */
     private $company;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CompanyActivity::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $companyActivity;
 
     /**
      * @var string
@@ -115,6 +133,11 @@ class User implements UserInterface
     private $selector;
 
     /**
+     * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="users")
+     */
+    private $skills;
+
+    /**
      * @return string
      */
     public static function getDefaultRole()
@@ -127,7 +150,15 @@ class User implements UserInterface
      */
     public function __toString()
     {
-        return (string) $this->getUsername();
+        return (string) $this->getFirstName().' '.$this->getLastName();
+    }
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->skills = new ArrayCollection();
     }
 
     /**
@@ -144,6 +175,46 @@ class User implements UserInterface
     public function getUsername(): ?string
     {
         return $this->username;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     *
+     * @return $this
+     */
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     *
+     * @return $this
+     */
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
     }
 
     /**
@@ -174,6 +245,26 @@ class User implements UserInterface
     public function setCompany(string $company): self
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return CompanyActivity|null
+     */
+    public function getCompanyActivity(): ?CompanyActivity
+    {
+        return $this->companyActivity;
+    }
+
+    /**
+     * @param CompanyActivity|null $companyActivity
+     *
+     * @return $this
+     */
+    public function setCompanyActivity(?CompanyActivity $companyActivity): self
+    {
+        $this->companyActivity = $companyActivity;
 
         return $this;
     }
@@ -352,5 +443,39 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Skill[]
+     */
+    public function getSkills(): Collection
+    {
+        return $this->skills;
+    }
+
+    /**
+     * @param Skill $skill
+     *
+     * @return $this
+     */
+    public function addSkill(Skill $skill): self
+    {
+        if (!$this->skills->contains($skill)) {
+            $this->skills[] = $skill;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Skill $skill
+     *
+     * @return $this
+     */
+    public function removeSkill(Skill $skill): self
+    {
+        $this->skills->removeElement($skill);
+
+        return $this;
     }
 }
