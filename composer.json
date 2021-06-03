@@ -1,4 +1,6 @@
 {
+    "name": "sirius",
+    "description": "api for sirius",
     "type": "project",
     "license": "proprietary",
     "require": {
