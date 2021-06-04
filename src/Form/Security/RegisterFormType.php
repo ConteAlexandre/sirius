@@ -33,8 +33,9 @@ class RegisterFormType extends AbstractType
             ->add('company', TextType::class)
             ->add('companyActivity', EntityType::class, [
                 'class' => CompanyActivity::class,
+                'choice_value' => 'name'
             ])
-            ->add('numberPhone', TextType::class)
+            ->add('phoneNumber', TextType::class)
             ->add('beverage', TextType::class)
             ->add('password', RepeatedType::class, [
                 'property_path' => 'plainPassword',

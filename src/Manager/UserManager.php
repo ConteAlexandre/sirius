@@ -55,6 +55,7 @@ class UserManager
     {
         $user = new User();
         $user
+            ->setRoles(['ROLE_USER'])
             ->setEnabled(false)
             ->setSelector(TokenManager::getSelector(16));
 

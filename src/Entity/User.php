@@ -12,7 +12,6 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordRequirements;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -78,7 +77,7 @@ class User implements UserInterface
      *
      * @ORM\Column(type="string", length=100)
      */
-    private $numberPhone;
+    private $phoneNumber;
 
     /**
      * @var string
@@ -320,19 +319,19 @@ class User implements UserInterface
     /**
      * @return string|null
      */
-    public function getNumberPhone(): ?string
+    public function getPhoneNumber(): ?string
     {
-        return $this->numberPhone;
+        return $this->phoneNumber;
     }
 
     /**
-     * @param string $numberPhone
+     * @param string $phoneNumber
      *
      * @return $this
      */
-    public function setNumberPhone(string $numberPhone): self
+    public function setPhoneNumber(string $phoneNumber): self
     {
-        $this->numberPhone = $numberPhone;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
@@ -363,6 +362,14 @@ class User implements UserInterface
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 
     /**
