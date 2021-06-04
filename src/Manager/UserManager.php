@@ -56,8 +56,7 @@ class UserManager
         $user = new User();
         $user
             ->setEnabled(false)
-            ->setSelector(TokenManager::getSelector(16))
-        ;
+            ->setSelector(TokenManager::getSelector(16));
 
         return $user;
     }
@@ -77,12 +76,12 @@ class UserManager
     }
 
     /**
-     * @param      $user
+     * @param User $user
      * @param bool $andFlush
      *
      * @throws \Exception
      */
-    public function save($user, bool $andFlush = true)
+    public function save(User $user, bool $andFlush = true)
     {
         $this->updatePassword($user);
         $this->em->persist($user);
