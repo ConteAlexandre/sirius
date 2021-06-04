@@ -38,17 +38,17 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, name="username")
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=150, name="first_name")
      */
     private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=150, name="last_name")
      */
     private $lastName;
 
@@ -71,6 +71,13 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=150)
      */
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100)
+     */
+    private $phoneNumber;
 
     /**
      * @var string
@@ -232,7 +239,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getCompany(): string
+    public function getCompany(): ?string
     {
         return $this->company;
     }
@@ -292,7 +299,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getBeverage(): string
+    public function getBeverage(): ?string
     {
         return $this->beverage;
     }
@@ -305,6 +312,26 @@ class User implements UserInterface
     public function setBeverage(string $beverage): self
     {
         $this->beverage = $beverage;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    /**
+     * @param string $phoneNumber
+     *
+     * @return $this
+     */
+    public function setPhoneNumber(string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
@@ -332,15 +359,23 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getPlainPassword(): string
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
 
     /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
      * @return string
      */
-    public function getResetToken(): string
+    public function getResetToken(): ?string
     {
         return $this->resetToken;
     }
@@ -360,7 +395,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getConfirmationToken(): string
+    public function getConfirmationToken(): ?string
     {
         return $this->confirmationToken;
     }
@@ -380,7 +415,7 @@ class User implements UserInterface
     /**
      * @return \DateTime
      */
-    public function getRequestPasswordAt(): \DateTime
+    public function getRequestPasswordAt(): ?\DateTime
     {
         return $this->requestPasswordAt;
     }
@@ -420,7 +455,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getSelector(): string
+    public function getSelector(): ?string
     {
         return $this->selector;
     }
