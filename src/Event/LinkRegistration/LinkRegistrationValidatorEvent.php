@@ -17,6 +17,11 @@ class LinkRegistrationValidatorEvent extends LinkRegistrationEvent
     protected $validator;
 
     /**
+     * @var string
+     */
+    protected $email;
+
+    /**
      * LinkRegistrationValidatorEvent constructor.
      *
      * @param LinkRegistration   $linkRegistration
@@ -35,5 +40,13 @@ class LinkRegistrationValidatorEvent extends LinkRegistrationEvent
     public function getValidator(): string
     {
         return $this->validator;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
     }
 }
