@@ -6,7 +6,9 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 /**
  * Class AdminUser
@@ -15,6 +17,16 @@ use Sonata\AdminBundle\Show\ShowMapper;
  */
 class AdminUser extends AbstractAdmin
 {
+    /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection
+            ->remove('create')
+        ;
+    }
+
     /**
      * @param FormMapper $form
      */
@@ -30,7 +42,7 @@ class AdminUser extends AbstractAdmin
             ->add('email')
             ->add('phoneNumber')
             ->add('beverage')
-            ->add('plainPassword')
+            ->add('plainPassword', PasswordType::class)
             ->add('skills')
         ;
     }
