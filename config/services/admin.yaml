@@ -9,3 +9,9 @@ services:
     arguments: [ ~, App\Entity\User, ~ ]
     tags:
       - { name: sonata.admin, manager_type: orm, label: User, group: Users }
+
+  IdeaBoxAdmin:
+    class: App\Admin\IdeaBoxAdmin
+    arguments: [ ~, App\Entity\IdeaBox, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: IdeaBox }
