@@ -5,11 +5,24 @@ namespace App\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 
 class IdeaBoxAdmin extends AbstractAdmin
 {
+
+    /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection
+            ->remove('create')
+            ->remove('edit')
+        ;
+    }
+
     /**
      * @param ListMapper $list
      */
@@ -22,6 +35,11 @@ class IdeaBoxAdmin extends AbstractAdmin
                 ]
             ])
             ->add('content')
+            ->add('_action', null,[
+                'actions' => [
+                    'delete' => [],
+                ]
+            ])
         ;
     }
     /**
