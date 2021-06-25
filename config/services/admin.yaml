@@ -33,3 +33,9 @@ services:
     arguments: [ ~, App\Entity\Skill, ~ ]
     tags:
       - { name: sonata.admin, manager_type: orm, label: Skill, group: Skill }
+
+  CompanyActivityAdmin:
+    class: App\Admin\CompanyActivityAdmin
+    arguments: [ ~, App\Entity\CompanyActivity, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: CompanyActivity, group: CompanyActivity }
