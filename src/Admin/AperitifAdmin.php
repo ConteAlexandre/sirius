@@ -3,15 +3,19 @@
 
 namespace App\Admin;
 
+use Faker\Provider\Text;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-
-class IdeaBoxAdmin extends AbstractAdmin
+/**
+ * Class AperitifAdmin
+ * @package App\Admin
+ */
+class AperitifAdmin extends AbstractAdmin
 {
-
     /**
      * @param RouteCollection $collection
      */
@@ -34,23 +38,40 @@ class IdeaBoxAdmin extends AbstractAdmin
                     'name' => 'show',
                 ]
             ])
-            ->add('content')
+            ->add('date')
+            ->add('comment')
             ->add('createdAt')
             ->add('createdBy')
             ->add('_action', null,[
                 'actions' => [
+                    'edit' => [],
                     'delete' => [],
                 ]
             ])
         ;
     }
+
+    /**
+     * @param DatagridMapper $filter
+     */
+    protected function configureDatagridFilters(DatagridMapper $filter)
+    {
+        $filter
+            ->add('createdBy')
+        ;
+    }
+
     /**
      * @param ShowMapper $show
      */
     protected function configureShowFields(ShowMapper $show)
     {
         $show
-            ->add("content")
+            ->add('date')
+            ->add('comment')
+            ->add('createdAt')
+            ->add('createdBy')
         ;
     }
+
 }

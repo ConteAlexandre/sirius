@@ -21,3 +21,10 @@ services:
     arguments: [ ~, App\Entity\LinkRegistration, App\Controller\Admin\LinkRegistrationAdminController ]
     tags:
       - { name: sonata.admin, manager_type: orm, label: Link Registration, group: Users }
+
+  AperitifAdmin:
+    class: App\Admin\AperitifAdmin
+    arguments: [ ~, App\Entity\Aperitif, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: Aperitif, group: Aperitif }
+
