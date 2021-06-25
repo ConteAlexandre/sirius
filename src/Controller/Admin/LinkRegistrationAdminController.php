@@ -10,13 +10,14 @@ use App\Utils\Security\TokenManager;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class AdminUserController
+ * Class LinkRegistrationAdminController
  *
  * @author CONTE Alexandre <pro.alexandre.conte@gmail.com>
  */
-class AdminUserController extends CRUDController
+class LinkRegistrationAdminController extends CRUDController
 {
     /**
      * @var LinkRegistrationManager
@@ -24,7 +25,7 @@ class AdminUserController extends CRUDController
     private $linkRegistrationManager;
 
     /**
-     * AdminUserController constructor.
+     * LinkRegistrationAdminController constructor.
      *
      * @param LinkRegistrationManager $linkRegistrationManager
      */
@@ -33,7 +34,14 @@ class AdminUserController extends CRUDController
         $this->linkRegistrationManager = $linkRegistrationManager;
     }
 
-    public function createLinkForInscription(Request $request, EventDispatcherInterface $dispatcher)
+    /**
+     * @param Request                  $request
+     * @param EventDispatcherInterface $dispatcher
+     *
+     * @return Response
+     * @throws \Exception
+     */
+    public function newAction(Request $request, EventDispatcherInterface $dispatcher)
     {
         $linkRegistration = $this->linkRegistrationManager->createLinkRegistration();
         $form = $this->createForm(LinkRegistrationFormType::class, $linkRegistration);
@@ -41,20 +49,23 @@ class AdminUserController extends CRUDController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $token = TokenManager::getToken();
-            $linkRegistration->setTokenRegistration($token);
+            $linkRegistration->setTokenRegistration(TokenManager::hashToken($token));
             $validator = TokenManager::getValidator($token);
+            $email = $form->get('email')->getData();
 
             $this->linkRegistrationManager->save($linkRegistration);
 
-            $event = new LinkRegistrationValidatorEvent($linkRegistration, $validator);
+            $event = new LinkRegistrationValidatorEvent($linkRegistration, $validator, $email);
             $dispatcher->dispatch($event, LinkRegistrationEvents::REGISTERED);
+
+            return $this->redirectToRoute('admin_app_linkregistration_list');
         }
 
-        return $this->renderWithExtraParams('admin/CRUD/link_registration.html.twig', [
+        return $this->renderWithExtraParams('admin/CRUD/link_registration_new.html.twig', [
             'object' => $linkRegistration,
             'action' => 'link_registration',
             'form' => $form->createView(),
-            'csrf_token' => $this->getCsrfToken('sonata.update_status'),
+            'csrf_token' => $this->getCsrfToken('sonata.new'),
         ], null);
     }
 }

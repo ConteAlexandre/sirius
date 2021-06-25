@@ -23,7 +23,7 @@ class LinkRegistrationMailer extends AbstractMailer
     {
         $message = $this->createTemplateMessage(
             'Link for create your account for sirius',
-            'email/link_registration.html.twig',
+            'email/link_registration_new.html.twig',
             [
                 'selector' => $linkRegistration->getSelector(),
                 'validator' => $validator,
