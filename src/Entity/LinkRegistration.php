@@ -85,11 +85,19 @@ class LinkRegistration
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTokenRegistration(): ?string
     {
         return $this->tokenRegistration;
     }
 
+    /**
+     * @param string $tokenRegistration
+     *
+     * @return $this
+     */
     public function setTokenRegistration(string $tokenRegistration): self
     {
         $this->tokenRegistration = $tokenRegistration;

@@ -11,12 +11,16 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 /**
- * Class AdminUser
+ * Class UserAdmin
  *
  * @author CONTE Alexandre <pro.alexandre.conte@gmail.com>
  */
-class AdminUser extends AbstractAdmin
+class UserAdmin extends AbstractAdmin
 {
+    protected $accessMapping = [
+        'create_link_registration' => 'CREATE_LINK_REGISTRATION',
+    ];
+
     /**
      * @param RouteCollection $collection
      */
@@ -24,6 +28,7 @@ class AdminUser extends AbstractAdmin
     {
         $collection
             ->remove('create')
+            ->add('create_link_registration', 'link/registration')
         ;
     }
 

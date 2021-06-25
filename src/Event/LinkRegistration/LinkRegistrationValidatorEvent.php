@@ -24,14 +24,16 @@ class LinkRegistrationValidatorEvent extends LinkRegistrationEvent
     /**
      * LinkRegistrationValidatorEvent constructor.
      *
-     * @param LinkRegistration   $linkRegistration
-     * @param string $validator
+     * @param LinkRegistration $linkRegistration
+     * @param string           $validator
+     * @param string           $email
      */
-    public function __construct(LinkRegistration $linkRegistration, string $validator)
+    public function __construct(LinkRegistration $linkRegistration, string $validator, string $email)
     {
         parent::__construct($linkRegistration);
 
         $this->validator = $validator;
+        $this->email = $email;
     }
 
     /**
@@ -43,9 +45,9 @@ class LinkRegistrationValidatorEvent extends LinkRegistrationEvent
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }

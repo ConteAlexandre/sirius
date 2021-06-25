@@ -40,7 +40,7 @@ class LinkRegistrationListener implements EventSubscriberInterface
     {
         $this->em = $entityManager;
         $this->linkRegistrationManager = $linkRegistrationManager;
-        $this->linkRegistrationManager = $linkRegistrationMailer;
+        $this->linkRegistrationMailer = $linkRegistrationMailer;
     }
 
     /**
