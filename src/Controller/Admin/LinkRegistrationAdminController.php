@@ -13,11 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class UserAdminController
+ * Class LinkRegistrationAdminController
  *
  * @author CONTE Alexandre <pro.alexandre.conte@gmail.com>
  */
-class UserAdminController extends CRUDController
+class LinkRegistrationAdminController extends CRUDController
 {
     /**
      * @var LinkRegistrationManager
@@ -25,7 +25,7 @@ class UserAdminController extends CRUDController
     private $linkRegistrationManager;
 
     /**
-     * UserAdminController constructor.
+     * LinkRegistrationAdminController constructor.
      *
      * @param LinkRegistrationManager $linkRegistrationManager
      */
@@ -41,7 +41,7 @@ class UserAdminController extends CRUDController
      * @return Response
      * @throws \Exception
      */
-    public function createLinkRegistrationAction(Request $request, EventDispatcherInterface $dispatcher)
+    public function newAction(Request $request, EventDispatcherInterface $dispatcher)
     {
         $linkRegistration = $this->linkRegistrationManager->createLinkRegistration();
         $form = $this->createForm(LinkRegistrationFormType::class, $linkRegistration);
@@ -58,14 +58,14 @@ class UserAdminController extends CRUDController
             $event = new LinkRegistrationValidatorEvent($linkRegistration, $validator, $email);
             $dispatcher->dispatch($event, LinkRegistrationEvents::REGISTERED);
 
-            return $this->redirectToRoute('admin_app_user_list');
+            return $this->redirectToRoute('admin_app_linkregistration_list');
         }
 
-        return $this->renderWithExtraParams('admin/CRUD/link_registration.html.twig', [
+        return $this->renderWithExtraParams('admin/CRUD/link_registration_new.html.twig', [
             'object' => $linkRegistration,
             'action' => 'link_registration',
             'form' => $form->createView(),
-            'csrf_token' => $this->getCsrfToken('sonata.create_link_registration'),
+            'csrf_token' => $this->getCsrfToken('sonata.new'),
         ], null);
     }
 }

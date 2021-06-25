@@ -17,9 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
  */
 class UserAdmin extends AbstractAdmin
 {
-    protected $accessMapping = [
-        'create_link_registration' => 'CREATE_LINK_REGISTRATION',
-    ];
 
     /**
      * @param RouteCollection $collection
@@ -28,7 +25,6 @@ class UserAdmin extends AbstractAdmin
     {
         $collection
             ->remove('create')
-            ->add('create_link_registration', 'link/registration')
         ;
     }
 

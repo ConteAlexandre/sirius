@@ -15,6 +15,13 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class LinkRegistrationAdmin extends AbstractAdmin
 {
     /**
+     * @var string[]
+     */
+    protected $accessMapping = [
+        'new' => 'NEW',
+    ];
+
+    /**
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -22,6 +29,7 @@ class LinkRegistrationAdmin extends AbstractAdmin
         $collection
             ->remove('create')
             ->remove('edit')
+            ->add('new', 'new')
         ;
     }
 

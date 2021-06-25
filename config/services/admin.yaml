@@ -6,7 +6,7 @@ services:
 
   UserAdmin:
     class: App\Admin\UserAdmin
-    arguments: [ ~, App\Entity\User, App\Controller\Admin\UserAdminController ]
+    arguments: [ ~, App\Entity\User, ~ ]
     tags:
       - { name: sonata.admin, manager_type: orm, label: User, group: Users }
 
@@ -15,3 +15,9 @@ services:
     arguments: [ ~, App\Entity\IdeaBox, ~ ]
     tags:
       - { name: sonata.admin, manager_type: orm, label: IdeaBox, group: IdeaBox }
+
+  LinkResgitrationAdmin:
+    class: App\Admin\LinkRegistrationAdmin
+    arguments: [ ~, App\Entity\LinkRegistration, App\Controller\Admin\LinkRegistrationAdminController ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: Link Registration, group: Users }
