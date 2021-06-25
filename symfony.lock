@@ -739,6 +739,12 @@
     "symfony/security-http": {
         "version": "v4.4.25"
     },
+    "symfony/serializer": {
+        "version": "v4.4.25"
+    },
+    "symfony/serializer-pack": {
+        "version": "v1.0.4"
+    },
     "symfony/service-contracts": {
         "version": "v2.4.0"
     },
