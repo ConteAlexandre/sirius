@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Aperitif;
+use App\Form\AperitifFormType;
+use App\Manager\AperitifManager;
 use App\Repository\AperitifRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,6 +15,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AperitifController extends AbstractController
 {
@@ -50,21 +53,25 @@ class AperitifController extends AbstractController
     /**
      * @Route("/aperitif", name="aperitif", methods={"POST"})
      */
-    public function setAperitif(Request $request, AperitifRepository $aperitifRepository): Response
+    public function postAperitif(Request $request, AperitifManager $aperitifManager, ValidatorInterface  $validator): Response
     {
-        $response = new Response();
-        $aperitif = new Aperitif();
-        $reqData = json_decode($request->getContent(), true);
-        $aperitif->setDate($reqData["date"])
-            ->setComment($reqData["comment"]);
+        $data = json_decode($request->getContent(), true);
+        $aperitif = $aperitifManager->createAperitif();
+        $form = $this->createForm(AperitifFormType::class, $aperitif);
+        $form->submit($data);
 
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($aperitif);
-        $em->flush();
-        $response->setContent($aperitif->getId());
-        $response->setStatusCode(Response::HTTP_CREATED);
-        return $response;
+        $violation = $validator->validate($aperitif);
+
+        if (count($violation) > 0) {
+            foreach ($violation as $error) {
+                return new JsonResponse($error->getMessage(), Response::HTTP_BAD_REQUEST);
+            }
+        }
+
+        $aperitifManager->save($aperitif);
+
+        return new JsonResponse('Aperitif created');
     }
 
 
