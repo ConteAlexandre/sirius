@@ -6,12 +6,13 @@ namespace App\Admin;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\AdminBundle\Show\ShowMapper;
 
-
-class IdeaBoxAdmin extends AbstractAdmin
+/**
+ * Class AperitifAdmin
+ * @package App\Admin
+ */
+class AperitifAdmin extends AbstractAdmin
 {
-
     /**
      * @param RouteCollection $collection
      */
@@ -19,7 +20,6 @@ class IdeaBoxAdmin extends AbstractAdmin
     {
         $collection
             ->remove('create')
-            ->remove('edit')
         ;
     }
 
@@ -34,9 +34,7 @@ class IdeaBoxAdmin extends AbstractAdmin
                     'name' => 'show',
                 ]
             ])
-            ->add('content')
-            ->add('createdAt')
-            ->add('createdBy')
+            ->add('comment')
             ->add('_action', null,[
                 'actions' => [
                     'delete' => [],
@@ -44,13 +42,5 @@ class IdeaBoxAdmin extends AbstractAdmin
             ])
         ;
     }
-    /**
-     * @param ShowMapper $show
-     */
-    protected function configureShowFields(ShowMapper $show)
-    {
-        $show
-            ->add("content")
-        ;
-    }
+
 }
