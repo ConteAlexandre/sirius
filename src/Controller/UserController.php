@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Form\Security\RegisterFormType;
+use App\Manager\LinkRegistrationManager;
 use App\Manager\UserManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,23 +22,27 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/register", name="register", methods={"POST"})
+     * @Route("/register/{selector}/{validator}", name="register", methods={"POST", "GET"})
+     * @ParamConverter("link_registration", options={"selector" = "selector"})
+     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
-     * @param UserManager        $userManager
-     * @param Request            $request
-     * @param ValidatorInterface $validator
+     * @param UserManager             $userManager
+     * @param Request                 $request
+     * @param ValidatorInterface      $validatorInterface
+     * @param LinkRegistrationManager $linkRegistrationManager
      *
-     * @return JsonResponse
+     * @return JsonResponse|Response
      * @throws \Exception
      */
-    public function registerAction(UserManager $userManager, Request $request, ValidatorInterface $validator): JsonResponse
+    public function registerAction(UserManager $userManager, Request $request, ValidatorInterface $validatorInterface, LinkRegistrationManager $linkRegistrationManager)
     {
         $data = json_decode($request->getContent(), true);
         $user = $userManager->createUser();
+        $linkRegistration = $linkRegistrationManager->getLinkRegistration($request->attributes->get('selector'));
         $form = $this->createForm(RegisterFormType::class, $user);
         $form->submit($data);
 
-        $violation = $validator->validate($user);
+        $violation = $validatorInterface->validate($user);
 
         if (count($violation) > 0) {
             foreach ($violation as $error) {
@@ -43,6 +50,8 @@ class UserController extends AbstractController
             }
         }
 
+        $linkRegistration->eraseCredentials();
+        $linkRegistrationManager->save($linkRegistration);
         $userManager->save($user);
 
         return new JsonResponse('User created');
