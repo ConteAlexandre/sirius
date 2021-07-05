@@ -2,7 +2,9 @@
 
 namespace App\Admin;
 
+use Knp\Menu\ItemInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -20,6 +22,13 @@ class LinkRegistrationAdmin extends AbstractAdmin
     protected $accessMapping = [
         'new' => 'NEW',
     ];
+
+    protected function configureTabMenu(ItemInterface $menu, $action, ?AdminInterface $childAdmin = null)
+    {
+        $menu->addChild($this->trans('new'), [
+            'uri' => $this->generateUrl('new'),
+        ]);
+    }
 
     /**
      * @param RouteCollection $collection
