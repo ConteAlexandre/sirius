@@ -84,8 +84,6 @@ class AperitifController extends AbstractController
         }else{
             return new JsonResponse('Vous avez déjà créé un apéritif aujourdh\'ui');
         }
-
-
     }
 
 

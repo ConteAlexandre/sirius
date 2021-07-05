@@ -55,11 +55,9 @@ class AperitifManager
 
         $interval = date_diff($datelast2, $date2)->format('%R%a days');
 
-        if ($interval>= 1){
+        if ($interval >= 1) {
             return true;
-        }else return false;
-
-
+        } else return false;
 
 
     }
@@ -77,8 +75,4 @@ class AperitifManager
             $this->em->flush();
         }
     }
-
-
-
-
 }
