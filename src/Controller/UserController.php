@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\Security\RegisterFormType;
+use App\Manager\LinkRegistrationManager;
 use App\Manager\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -25,36 +26,34 @@ class UserController extends AbstractController
      * @ParamConverter("link_registration", options={"selector" = "selector"})
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
-     * @param UserManager        $userManager
-     * @param Request            $request
-     * @param ValidatorInterface $validatorInterface
+     * @param UserManager             $userManager
+     * @param Request                 $request
+     * @param ValidatorInterface      $validatorInterface
+     * @param LinkRegistrationManager $linkRegistrationManager
      *
      * @return JsonResponse|Response
      * @throws \Exception
      */
-    public function registerAction(UserManager $userManager, Request $request, ValidatorInterface $validatorInterface)
+    public function registerAction(UserManager $userManager, Request $request, ValidatorInterface $validatorInterface, LinkRegistrationManager $linkRegistrationManager)
     {
         $data = json_decode($request->getContent(), true);
         $user = $userManager->createUser();
+        $linkRegistration = $linkRegistrationManager->getLinkRegistration($request->attributes->get('selector'));
         $form = $this->createForm(RegisterFormType::class, $user);
-        if ($form->isSubmitted()) {
-            $form->submit($data);
+        $form->submit($data);
 
-            $violation = $validatorInterface->validate($user);
+        $violation = $validatorInterface->validate($user);
 
-            if (count($violation) > 0) {
-                foreach ($violation as $error) {
-                    return new JsonResponse($error->getMessage(), Response::HTTP_BAD_REQUEST);
-                }
+        if (count($violation) > 0) {
+            foreach ($violation as $error) {
+                return new JsonResponse($error->getMessage(), Response::HTTP_BAD_REQUEST);
             }
-
-            $userManager->save($user);
-
-            return new JsonResponse('User created');
-        } else {
-            return $this->render('register.html.twig', [
-                'form' => $form->createView(),
-            ]);
         }
+
+        $linkRegistration->eraseCredentials();
+        $linkRegistrationManager->save($linkRegistration);
+        $userManager->save($user);
+
+        return new JsonResponse('User created');
     }
 }

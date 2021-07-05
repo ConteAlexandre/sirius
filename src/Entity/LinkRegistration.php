@@ -28,12 +28,12 @@ class LinkRegistration
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $selector;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tokenRegistration;
 
@@ -103,5 +103,14 @@ class LinkRegistration
         $this->tokenRegistration = $tokenRegistration;
 
         return $this;
+    }
+
+    /**
+     * Erase Credentials
+     */
+    public function eraseCredentials()
+    {
+        $this->selector = null;
+        $this->tokenRegistration = null;
     }
 }

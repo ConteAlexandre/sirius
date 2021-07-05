@@ -49,6 +49,16 @@ class LinkRegistrationManager
     }
 
     /**
+     * @param string $selector
+     *
+     * @return LinkRegistration|null
+     */
+    public function getLinkRegistration(string $selector): LinkRegistration
+    {
+        return $this->linkRegistrationRepository->findOneBy(['selector' => $selector]);
+    }
+
+    /**
      * @param LinkRegistration $linkRegistration
      * @param bool             $andFlush
      */
