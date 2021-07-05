@@ -5,7 +5,10 @@ namespace App\Controller;
 use App\Entity\Aperitif;
 use App\Form\AperitifFormType;
 use App\Manager\AperitifManager;
+use App\Manager\UserManager;
+use App\Mailer\AperitifMailer;
 use App\Repository\AperitifRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,7 +56,7 @@ class AperitifController extends AbstractController
     /**
      * @Route("/aperitif", name="aperitif", methods={"POST"})
      */
-    public function postAperitif(Request $request, AperitifManager $aperitifManager, ValidatorInterface  $validator): Response
+    public function postAperitif(Request $request,UserManager $userManager, UserRepository $usersMail,AperitifManager $aperitifManager, ValidatorInterface  $validator, AperitifMailer $aperitifMailer, Aperitif $aperitif, AperitifRepository $aperitifRepository): Response
     {
         $data = json_decode($request->getContent(), true);
         $aperitif = $aperitifManager->createAperitif();
@@ -70,8 +73,19 @@ class AperitifController extends AbstractController
         }
 
         $aperitifManager->save($aperitif);
+        $emails = $userManager->findEmailUsers();
 
-        return new JsonResponse('Aperitif created');
+        if ($aperitifManager->checkAuthorizeAperitif($aperitif, $aperitifRepository)){
+            foreach ($emails as $email){
+                $aperitifMailer->sendAperitifMail($aperitif, $email);
+            }
+
+            return new JsonResponse('Aperitif created');
+        }else{
+            return new JsonResponse('Vous avez déjà créé un apéritif aujourdh\'ui');
+        }
+
+
     }
 
 

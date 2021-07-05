@@ -6,12 +6,15 @@ use App\Form\IdeaBoxFormType;
 use App\Manager\IdeaBoxManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class IdeaBoxController extends AbstractController
 {
+
+
     /**
      * @Route("/ideabox/", name="idea_box", methods={"POST"})
      * @param IdeaBoxManager     $ideaManager

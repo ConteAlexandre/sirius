@@ -43,6 +43,29 @@ class AperitifManager
 
     /**
      * @param Aperitif $aperitif
+     */
+    public function checkAuthorizeAperitif(Aperitif $aperitif, AperitifRepository $aperitifRepository): bool
+    {
+        $user = $aperitif->getCreatedBy();
+        $lastaperitif = $aperitifRepository->selectLastAperitifByUser($user);
+        $datelast2 = $lastaperitif->getCreatedAt();
+
+
+        $date2 = new \DateTime('now');
+
+        $interval = date_diff($datelast2, $date2)->format('%R%a days');
+
+        if ($interval>= 1){
+            return true;
+        }else return false;
+
+
+
+
+    }
+
+    /**
+     * @param Aperitif $aperitif
      * @param bool $andFlush
      *
      * @throws \Exception
@@ -54,5 +77,8 @@ class AperitifManager
             $this->em->flush();
         }
     }
+
+
+
 
 }

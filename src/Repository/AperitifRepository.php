@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Aperitif;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+
 
 /**
  * @method Aperitif|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,20 @@ class AperitifRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Aperitif::class);
+    }
+
+    public function selectLastAperitifByUser($user): ?Aperitif
+    {
+        return $this->createQueryBuilder('a')
+            ->select("a")
+            ->where("a.createdBy = :user")
+            ->setParameter('user', $user)
+            ->orderBy("a.createdAt", "DESC")
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+            ;
+
     }
 
     // /**
