@@ -38,6 +38,7 @@ class IdeaBoxManager
     public function createIdeaBox(): IdeaBox
     {
         $ideabox = new IdeaBox();
+        $ideabox->setEnabled(true);
         return $ideabox;
     }
 
@@ -47,7 +48,7 @@ class IdeaBoxManager
      *
      * @throws \Exception
      */
-    public function save(IdeaBox $ideabox, $andFlush = true)
+    public function save(IdeaBox $ideabox, bool $andFlush = true)
     {
         $this->em->persist($ideabox);
         if ($andFlush) {
