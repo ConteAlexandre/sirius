@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use JMS\Serializer\Annotation as Serializer;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordRequirements;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -89,6 +90,8 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Serializer\Exclude()
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $password;
@@ -109,12 +112,16 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Serializer\Exclude()
+     *
      * @ORM\Column(type="string", length=255, nullable=true, name="reset_token")
      */
     private $resetToken;
 
     /**
      * @var string
+     *
+     * @Serializer\Exclude()
      *
      * @ORM\Column(type="string", length=255, nullable=true, name="confirmation_token")
      */
@@ -123,11 +130,15 @@ class User implements UserInterface
     /**
      * @var \DateTime
      *
+     * @Serializer\Exclude()
+     *
      * @ORM\Column(type="datetime", nullable=true, name="request_password_at")
      */
     private $requestPasswordAt;
 
     /**
+     * @Serializer\Exclude()
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $salt;
@@ -135,11 +146,15 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Serializer\Exclude()
+     *
      * @ORM\Column(type="string", length=180, nullable=true, name="selector")
      */
     private $selector;
 
     /**
+     * @Serializer\SkipWhenEmpty()
+     *
      * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="users")
      */
     private $skills;

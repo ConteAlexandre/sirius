@@ -3,6 +3,7 @@
 namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Class EnabledEntityTrait
@@ -11,6 +12,8 @@ trait EnabledEntityTrait
 {
     /**
      * @var bool
+     *
+     * @Serializer\Exclude()
      *
      * @ORM\Column(name="enabled", type="boolean")
      */
