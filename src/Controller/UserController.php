@@ -70,7 +70,7 @@ class UserController extends AbstractController
     {
         $users = $userManager->getAllUserEnabled();
         $serialize = SerializerBuilder::create()->build();
-        $jsonContent = $serialize->serialize($users, 'json', SerializationContext::create());
+        $jsonContent = $serialize->serialize($users, 'json', SerializationContext::create()->setGroups('users'));
 
         return new JsonResponse($jsonContent, Response::HTTP_OK, [], true);
     }

@@ -34,7 +34,7 @@ trait EnabledEntityTrait
     /**
      * @return string
      */
-    public function getEnabled(): string
+    public function getEnabled(): ?string
     {
         return $this->enabled;
     }

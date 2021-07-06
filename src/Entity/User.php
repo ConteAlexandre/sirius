@@ -39,16 +39,22 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Serializer\Groups(groups="users")
+     *
      * @ORM\Column(type="string", length=100, name="username")
      */
     private $username;
 
     /**
+     * @Serializer\Groups(groups="users")
+     *
      * @ORM\Column(type="string", length=150, name="first_name")
      */
     private $firstName;
 
     /**
+     * @Serializer\Groups(groups="users")
+     *
      * @ORM\Column(type="string", length=150, name="last_name")
      */
     private $lastName;
@@ -56,11 +62,15 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Serializer\Groups(groups="users")
+     *
      * @ORM\Column(type="string", length=100, name="company")
      */
     private $company;
 
     /**
+     * @Serializer\Groups(groups="users")
+     *
      * @ORM\ManyToOne(targetEntity=CompanyActivity::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -68,6 +78,8 @@ class User implements UserInterface
 
     /**
      * @var string
+     *
+     * @Serializer\Groups(groups="users")
      *
      * @ORM\Column(type="string", length=150)
      */
@@ -83,14 +95,14 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Serializer\Groups(groups="users")
+     *
      * @ORM\Column(type="string", length=80, name="beverage")
      */
     private $beverage;
 
     /**
      * @var string
-     *
-     * @Serializer\Exclude()
      *
      * @ORM\Column(type="string", length=255)
      */
@@ -112,16 +124,12 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @Serializer\Exclude()
-     *
      * @ORM\Column(type="string", length=255, nullable=true, name="reset_token")
      */
     private $resetToken;
 
     /**
      * @var string
-     *
-     * @Serializer\Exclude()
      *
      * @ORM\Column(type="string", length=255, nullable=true, name="confirmation_token")
      */
@@ -130,15 +138,11 @@ class User implements UserInterface
     /**
      * @var \DateTime
      *
-     * @Serializer\Exclude()
-     *
      * @ORM\Column(type="datetime", nullable=true, name="request_password_at")
      */
     private $requestPasswordAt;
 
     /**
-     * @Serializer\Exclude()
-     *
      * @ORM\Column(type="string", length=255)
      */
     private $salt;
@@ -146,13 +150,12 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @Serializer\Exclude()
-     *
      * @ORM\Column(type="string", length=180, nullable=true, name="selector")
      */
     private $selector;
 
     /**
+     * @Serializer\Groups(groups="users")
      * @Serializer\SkipWhenEmpty()
      *
      * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="users")
