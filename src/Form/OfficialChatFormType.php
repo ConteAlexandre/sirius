@@ -1,18 +1,20 @@
 <?php
 
+
 namespace App\Form;
 
-use App\Entity\IdeaBox;
+
+use App\Entity\OfficialChat;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AppointmentFormType
+ * Class OfficialChatFormType
  * @package App\Form
  */
-class IdeaBoxFormType extends AbstractType
+class OfficialChatFormType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,18 +22,17 @@ class IdeaBoxFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('author', TextType::class)
             ->add('content', TextType::class);
 
     }
-  
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => IdeaBox::class,
+            'data_class' => OfficialChat::class,
         ]);
     }
-
 }
