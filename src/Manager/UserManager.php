@@ -77,7 +77,13 @@ class UserManager
 
     }
 
-
+    /**
+     * @return User[]
+     */
+    public function getAllUserEnabled(): array
+    {
+        return $this->userRepository->findBy(['enabled' => true]);
+    }
 
     /**
      * @param User $user

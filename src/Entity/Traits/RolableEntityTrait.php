@@ -3,6 +3,7 @@
 namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Class RolableEntityTrait
@@ -14,6 +15,8 @@ trait RolableEntityTrait
 {
     /**
      * @var array
+     *
+     * @Serializer\Exclude()
      *
      * @ORM\Column(name="roles", type="json")
      */

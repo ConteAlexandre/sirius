@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
@@ -29,6 +30,7 @@ class PostAdmin extends AbstractAdmin
                 'actions' => [
                     'edit' => [],
                     'delete' => [],
+                    'show' => [],
                 ]
             ])
         ;
@@ -61,6 +63,7 @@ class PostAdmin extends AbstractAdmin
                     'toolbar' => 'my_toolbar_1'
                 ]
             ])
+            ->add('enabled')
         ;
     }
 }

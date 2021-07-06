@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Form\Security\RegisterFormType;
 use App\Manager\LinkRegistrationManager;
 use App\Manager\UserManager;
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\SerializerBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,5 +57,21 @@ class UserController extends AbstractController
         $userManager->save($user);
 
         return new JsonResponse('User created');
+    }
+
+    /**
+     * @Route("/user/list", name="list", methods={"GET"})
+     *
+     * @param UserManager $userManager
+     *
+     * @return JsonResponse
+     */
+    public function listAction(UserManager $userManager): JsonResponse
+    {
+        $users = $userManager->getAllUserEnabled();
+        $serialize = SerializerBuilder::create()->build();
+        $jsonContent = $serialize->serialize($users, 'json', SerializationContext::create()->setGroups('users'));
+
+        return new JsonResponse($jsonContent, Response::HTTP_OK, [], true);
     }
 }

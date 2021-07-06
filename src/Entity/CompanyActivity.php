@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass=CompanyActivityRepository::class)
@@ -30,6 +31,8 @@ class CompanyActivity
 
     /**
      * @var string
+     *
+     * @Serializer\Groups(groups="users")
      *
      * @ORM\Column(type="string", length=150, name="name")
      */
