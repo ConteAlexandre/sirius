@@ -51,13 +51,25 @@ php bin/console d:f:l
 ```
 
 ### Six step
+Run the command for install ckeditor and assets:
+```
+./bin/console ckeditor:install
+./bin/console assets:install
+```
+or
+```
+php bin/console ckeditor:install
+php bin/console assets:install
+```
+
+### Seven step
 
 Run the application with this command
 ```
 php -S localhost:8000 -t public
 ```
 
-### Seven step
+### Eight step
 
 Create user admin
 

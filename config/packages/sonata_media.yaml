@@ -20,4 +20,4 @@ sonata_media:
         local:
             # Directory for uploads should be writable
             directory: "%kernel.project_dir%/public/upload/media"
-            create: false
+            create: true
