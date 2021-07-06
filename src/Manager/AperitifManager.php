@@ -38,6 +38,7 @@ class AperitifManager
     public function createAperitif(): Aperitif
     {
         $aperitif = new Aperitif();
+        $aperitif->setEnabled(true);
         return $aperitif;
     }
 
@@ -47,19 +48,20 @@ class AperitifManager
     public function checkAuthorizeAperitif(Aperitif $aperitif, AperitifRepository $aperitifRepository): bool
     {
         $user = $aperitif->getCreatedBy();
+        var_dump($user);
         $lastaperitif = $aperitifRepository->selectLastAperitifByUser($user);
-        $datelast2 = $lastaperitif->getCreatedAt();
+        var_dump($lastaperitif);
+        if ($lastaperitif != null) {
+            $datelast2 = $lastaperitif->getCreatedAt();
 
+            $date2 = new \DateTime('now');
 
-        $date2 = new \DateTime('now');
+            $interval = date_diff($datelast2, $date2)->format('%R%');
 
-        $interval = date_diff($datelast2, $date2)->format('%R%a days');
-
-        if ($interval >= 1) {
-            return true;
-        } else return false;
-
-
+            if ($interval >= 1) {
+                 return true;
+             } else return false;
+        }else return true;
     }
 
     /**

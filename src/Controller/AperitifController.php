@@ -56,13 +56,12 @@ class AperitifController extends AbstractController
     /**
      * @Route("/aperitif", name="aperitif", methods={"POST"})
      */
-    public function postAperitif(Request $request,UserManager $userManager, UserRepository $usersMail,AperitifManager $aperitifManager, ValidatorInterface  $validator, AperitifMailer $aperitifMailer, Aperitif $aperitif, AperitifRepository $aperitifRepository): Response
+    public function postAperitif(Request $request,UserManager $userManager, AperitifManager $aperitifManager, ValidatorInterface  $validator,  AperitifRepository $aperitifRepository): Response
     {
         $data = json_decode($request->getContent(), true);
         $aperitif = $aperitifManager->createAperitif();
         $form = $this->createForm(AperitifFormType::class, $aperitif);
         $form->submit($data);
-
 
         $violation = $validator->validate($aperitif);
 
@@ -72,12 +71,12 @@ class AperitifController extends AbstractController
             }
         }
 
-        $aperitifManager->save($aperitif);
         $emails = $userManager->findEmailUsers();
 
         if ($aperitifManager->checkAuthorizeAperitif($aperitif, $aperitifRepository)){
             foreach ($emails as $email){
-                $aperitifMailer->sendAperitifMail($aperitif, $email);
+                $aperitifManager->save($aperitif);
+                /*$aperitifMailer->sendAperitifMail($aperitif, $email);*/
             }
 
             return new JsonResponse('Aperitif created');

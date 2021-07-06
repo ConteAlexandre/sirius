@@ -21,6 +21,11 @@ class AperitifRepository extends ServiceEntityRepository
         parent::__construct($registry, Aperitif::class);
     }
 
+    /**
+     * @param $user
+     * @return Aperitif|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function selectLastAperitifByUser($user): ?Aperitif
     {
         return $this->createQueryBuilder('a')
@@ -30,7 +35,7 @@ class AperitifRepository extends ServiceEntityRepository
             ->orderBy("a.createdAt", "DESC")
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
             ;
 
     }
