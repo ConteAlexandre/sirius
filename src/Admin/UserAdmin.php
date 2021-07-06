@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 /**
@@ -37,10 +38,16 @@ class UserAdmin extends AbstractAdmin
             ->add('username')
             ->add('firstName')
             ->add('lastName')
+            ->add('email')
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'ROLE_PARTENAIRE' => 'ROLE_PARTENAIRE',
+                    'ROLE_UTILISATEUR' => 'ROLE_UTILISATEUR',
+                ],
+            ])
             ->add('company')
             ->add('company')
             ->add('companyActivity')
-            ->add('email')
             ->add('phoneNumber')
             ->add('beverage')
             ->add('plainPassword', PasswordType::class)
