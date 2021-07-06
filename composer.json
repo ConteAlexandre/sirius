@@ -33,7 +33,6 @@
         "symfony/property-access": "4.4.*",
         "symfony/property-info": "4.4.*",
         "symfony/proxy-manager-bridge": "4.4.*",
-        "symfony/serializer": "4.4.*",
         "symfony/yaml": "4.4.*",
         "twig/extra-bundle": "^3.3",
         "vich/uploader-bundle": "^1.17"
