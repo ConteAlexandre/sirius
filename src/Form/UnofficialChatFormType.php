@@ -2,33 +2,28 @@
 
 
 namespace App\Form;
-use App\Entity\Aperitif;
-use App\Entity\IdeaBox;
 
-use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\DomCrawler\Field\TextareaFormField;
+
+use App\Entity\UnofficialChat;
+use Doctrine\DBAL\Types\StringType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 /**
- * Class AppointmentFormType
+ * Class UnofficialChatFormType
  * @package App\Form
  */
-class IdeaBoxFormType extends AbstractType
+class UnofficialChatFormType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('author', TextType::class)
             ->add('content', TextType::class);
 
     }
@@ -38,8 +33,7 @@ class IdeaBoxFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => IdeaBox::class,
+            'data_class' => UnofficialChat::class,
         ]);
     }
-
 }
