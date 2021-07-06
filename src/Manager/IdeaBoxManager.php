@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Manager;
-
 
 use App\Entity\IdeaBox;
 use App\Repository\IdeaBoxRepository;
@@ -14,7 +12,6 @@ class IdeaBoxManager
      * @var EntityManagerInterface
      */
     protected $em;
-
 
     /**
      * @var IdeaBoxRepository

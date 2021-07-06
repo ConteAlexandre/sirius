@@ -1,12 +1,11 @@
 <?php
 
-
 namespace App\Manager;
-
 
 use App\Entity\Aperitif;
 use App\Repository\AperitifRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 
 class AperitifManager
 {
@@ -14,7 +13,6 @@ class AperitifManager
      * @var EntityManagerInterface
      */
     protected $em;
-
 
     /**
      * @var AperitifRepository
@@ -43,7 +41,11 @@ class AperitifManager
     }
 
     /**
-     * @param Aperitif $aperitif
+     * @param Aperitif           $aperitif
+     * @param AperitifRepository $aperitifRepository
+     *
+     * @return bool
+     * @throws NonUniqueResultException
      */
     public function checkAuthorizeAperitif(Aperitif $aperitif, AperitifRepository $aperitifRepository): bool
     {
@@ -58,8 +60,12 @@ class AperitifManager
 
             if ($interval >= 1) {
                  return true;
-             } else return false;
-        }else return true;
+             } else {
+                return false;
+            }
+        }else {
+            return true;
+        }
     }
 
     /**
@@ -68,7 +74,7 @@ class AperitifManager
      *
      * @throws \Exception
      */
-    public function save(Aperitif $aperitif, $andFlush = true)
+    public function save(Aperitif $aperitif, bool $andFlush = true)
     {
         $this->em->persist($aperitif);
         if ($andFlush) {
