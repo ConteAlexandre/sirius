@@ -11,10 +11,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * Class IdeaBoxController
+ *
+ * @Route("/api/ideabox", name="idea_box")
+ */
 class IdeaBoxController extends AbstractController
 {
     /**
-     * @Route("/ideabox/", name="idea_box", methods={"POST"})
+     * @Route("/create", name="create", methods={"POST"})
      * @param IdeaBoxManager     $ideaManager
      * @param Request            $request
      * @param ValidatorInterface $validator

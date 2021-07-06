@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * Class AperitifController
  *
- * @Route("/aperitif", name="aperitif_")
+ * @Route("/api/aperitif", name="aperitif_")
  */
 class AperitifController extends AbstractController
 {
