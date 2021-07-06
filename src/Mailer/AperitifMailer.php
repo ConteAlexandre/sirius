@@ -1,12 +1,13 @@
 <?php
 
-
 namespace App\Mailer;
-
 
 use App\Entity\Aperitif;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
+/**
+ * Class AperitifMailer
+ */
 class AperitifMailer extends AbstractMailer
 {
     /**
@@ -15,12 +16,11 @@ class AperitifMailer extends AbstractMailer
      *
      * @throws TransportExceptionInterface
      */
-
     public function sendAperitifMail(Aperitif $aperitif, string $email){
 
         $message = $this->createTemplateMessage(
             'Nouvel aperitif prévu',
-            'email/aperitif.html.twig',
+            'email/aperitif_new.html.twig',
             [
                 'date' => $aperitif->getDate(),
                 'comment' => $aperitif->getComment()

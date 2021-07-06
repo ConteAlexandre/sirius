@@ -18,8 +18,6 @@ class AdminUser implements UserInterface
         BlameableEntity,
         EnabledEntityTrait;
 
-    const ROLE_DEFAULT = 'ROLE_ADMIN';
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -66,11 +64,6 @@ class AdminUser implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $salt;
-
-    public static function getDefaultRole()
-    {
-        return self::ROLE_DEFAULT;
-    }
 
     /**
      * @return int|null

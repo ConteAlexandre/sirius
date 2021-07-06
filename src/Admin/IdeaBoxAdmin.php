@@ -8,7 +8,9 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-
+/**
+ * Class IdeaBoxAdmin
+ */
 class IdeaBoxAdmin extends AbstractAdmin
 {
 

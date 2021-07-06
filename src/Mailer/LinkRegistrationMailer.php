@@ -22,7 +22,7 @@ class LinkRegistrationMailer extends AbstractMailer
     public function sendLinkForRegistration(LinkRegistration $linkRegistration, string $validator, string $email)
     {
         $message = $this->createTemplateMessage(
-            'Link for create your account for sirius',
+            'Lien pour vous créer un compte sur sirius.immo',
             'email/link_registration_new.html.twig',
             [
                 'selector' => $linkRegistration->getSelector(),

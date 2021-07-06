@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\AperitifFormType;
+use App\Mailer\AperitifMailer;
 use App\Manager\AperitifManager;
 use App\Manager\UserManager;
 use App\Repository\AperitifRepository;
@@ -10,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -22,8 +24,19 @@ class AperitifController extends AbstractController
 {
     /**
      * @Route("/create", name="create", methods={"POST"})
+     *
+     * @param Request            $request
+     * @param UserManager        $userManager
+     * @param AperitifManager    $aperitifManager
+     * @param ValidatorInterface $validator
+     * @param AperitifRepository $aperitifRepository
+     * @param AperitifMailer     $aperitifMailer
+     *
+     * @return Response
+     * @throws TransportExceptionInterface
+     * @throws \Exception
      */
-    public function postAperitif(Request $request,UserManager $userManager, AperitifManager $aperitifManager, ValidatorInterface  $validator,  AperitifRepository $aperitifRepository): Response
+    public function postAperitif(Request $request,UserManager $userManager, AperitifManager $aperitifManager, ValidatorInterface  $validator,  AperitifRepository $aperitifRepository, AperitifMailer $aperitifMailer): Response
     {
         $data = json_decode($request->getContent(), true);
         $aperitif = $aperitifManager->createAperitif();
@@ -43,7 +56,7 @@ class AperitifController extends AbstractController
         if ($aperitifManager->checkAuthorizeAperitif($aperitif, $aperitifRepository)){
             foreach ($emails as $email){
                 $aperitifManager->save($aperitif);
-                /*$aperitifMailer->sendAperitifMail($aperitif, $email);*/
+                $aperitifMailer->sendAperitifMail($aperitif, $email);
             }
 
             return new JsonResponse('Aperitif created');

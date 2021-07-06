@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ProfileFormType;
 use App\Manager\UserManager;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
@@ -37,9 +38,32 @@ class UserController extends AbstractController
         return new JsonResponse($jsonContent, Response::HTTP_OK, [], true);
     }
 
-    public function updateAction(UserManager $userManager, Request $request, ValidatorInterface $validator)
+    /**
+     * @Route("/update", name="update", methods={"PUT"})
+     *
+     * @param UserManager        $userManager
+     * @param Request            $request
+     * @param ValidatorInterface $validator
+     *
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function updateAction(UserManager $userManager, Request $request, ValidatorInterface $validator): JsonResponse
     {
         $user = $this->getUser();
+        $data = json_encode($request->getContent(), true);
+        $form = $this->createForm(ProfileFormType::class, $user);
+        $form->submit($data);
 
+        $violation = $validator->validate($user);
+        if (count($violation) > 0) {
+            foreach ($violation as $error) {
+                return new JsonResponse($error->getMessage(), Response::HTTP_BAD_REQUEST);
+            }
+        }
+
+        $userManager->save($user);
+
+        return new JsonResponse('Profile is updated');
     }
 }
