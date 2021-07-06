@@ -3,10 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Aperitif;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
-
 
 /**
  * @method Aperitif|null find($id, $lockMode = null, $lockVersion = null)
@@ -24,7 +23,7 @@ class AperitifRepository extends ServiceEntityRepository
     /**
      * @param $user
      * @return Aperitif|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function selectLastAperitifByUser($user): ?Aperitif
     {
@@ -39,33 +38,4 @@ class AperitifRepository extends ServiceEntityRepository
             ;
 
     }
-
-    // /**
-    //  * @return Aperitif[] Returns an array of Aperitif objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Aperitif
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
