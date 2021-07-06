@@ -7,10 +7,15 @@ use App\Repository\AdminUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordRequirements;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AdminUserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="This email is already used.")
+ * @UniqueEntity(fields={"username"}, message="This username is already used.")
  */
 class AdminUser implements UserInterface
 {
@@ -26,21 +31,51 @@ class AdminUser implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="L'email doit faire minimum 8 caractères",
+     *     max="50",
+     *     maxMessage="L'emil ne doit pas contenir plus de 50 caractères"
+     * )
+     *
      * @ORM\Column(type="string", length=150)
      */
     private $email;
 
     /**
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="L'email doit faire minimum 8 caractères",
+     *     max="50",
+     *     maxMessage="L'emil ne doit pas contenir plus de 50 caractères"
+     * )
+     *
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $firstName;
 
     /**
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="L'email doit faire minimum 8 caractères",
+     *     max="50",
+     *     maxMessage="L'emil ne doit pas contenir plus de 50 caractères"
+     * )
+     *
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $lastName;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="L'email doit faire minimum 8 caractères",
+     *     max="50",
+     *     maxMessage="L'emil ne doit pas contenir plus de 50 caractères"
+     * )
+     *
      * @ORM\Column(type="string", length=100)
      */
     private $username;
@@ -52,6 +87,14 @@ class AdminUser implements UserInterface
 
     /**
      * @var string
+     *
+     * @PasswordRequirements(
+     *     minLength=8,
+     *     requireNumbers=true,
+     *     requireLetters=true,
+     *     requireCaseDiff=true,
+     *     requireSpecialCharacter=true,
+     * )
      */
     private $plainPassword;
 
