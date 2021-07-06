@@ -1,9 +1,7 @@
 <?php
 
-
 namespace App\Admin;
 
-use Faker\Provider\Text;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;

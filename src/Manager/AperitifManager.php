@@ -48,9 +48,7 @@ class AperitifManager
     public function checkAuthorizeAperitif(Aperitif $aperitif, AperitifRepository $aperitifRepository): bool
     {
         $user = $aperitif->getCreatedBy();
-        var_dump($user);
         $lastaperitif = $aperitifRepository->selectLastAperitifByUser($user);
-        var_dump($lastaperitif);
         if ($lastaperitif != null) {
             $datelast2 = $lastaperitif->getCreatedAt();
 

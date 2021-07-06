@@ -7,7 +7,7 @@ namespace App\Admin;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
@@ -17,13 +17,13 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class CompanyActivityAdmin extends AbstractAdmin
 {
     /**
-     * @param RouteCollection $collection
+     * @param FormMapper $form
      */
-    protected function configureRoutes(RouteCollection $collection)
+    protected function configureFormFields(FormMapper $form)
     {
-        $collection
-            ->remove('create')
-            ->remove('edit')
+        $form
+            ->add('name')
+            ->add('enabled')
         ;
     }
 
