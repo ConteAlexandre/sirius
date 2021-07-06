@@ -49,19 +49,19 @@ class Aperitif
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTime|null
      */
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?\DateTime
     {
         return $this->date;
     }
 
     /**
-     * @param \DateTimeInterface $date
+     * @param \DateTime $date
      *
      * @return $this
      */
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(\DateTime $date): self
     {
         $this->date = $date;
 

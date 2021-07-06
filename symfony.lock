@@ -228,12 +228,6 @@
     "laminas/laminas-code": {
         "version": "4.3.0"
     },
-    "laminas/laminas-eventmanager": {
-        "version": "3.3.1"
-    },
-    "laminas/laminas-zendframework-bridge": {
-        "version": "1.2.0"
-    },
     "lcobucci/clock": {
         "version": "2.0.0"
     },
@@ -759,6 +753,12 @@
     },
     "symfony/security-http": {
         "version": "v4.4.25"
+    },
+    "symfony/serializer": {
+        "version": "v4.4.25"
+    },
+    "symfony/serializer-pack": {
+        "version": "v1.0.4"
     },
     "symfony/service-contracts": {
         "version": "v2.4.0"
