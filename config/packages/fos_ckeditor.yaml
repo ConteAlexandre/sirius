@@ -1,4 +1,31 @@
 # Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+    configs:
+        default:
+            filebrowserBrowseRoute: admin_app_sonatamediamedia_ckeditor_browser
+            filebrowserImageBrowseRoute: admin_app_sonatamediamedia_ckeditor_browser
+            # Display images by default when clicking the image dialog browse button
+            filebrowserImageBrowseRouteParameters:
+                provider: sonata.media.provider.image
+            filebrowserUploadMethod: form
+            filebrowserUploadRoute: admin_app_sonatamediamedia_ckeditor_upload
+            filebrowserUploadRouteParameters:
+                provider: sonata.media.provider.file
+            # Upload file as image when sending a file from the image dialog
+            filebrowserImageUploadRoute: admin_app_sonatamediamedia_ckeditor_upload
+            filebrowserImageUploadRouteParameters:
+                provider: sonata.media.provider.image
+            forcePasteAsPlainText: true
+    toolbars:
+        configs:
+            my_toolbar_1: [ "@document", "/", "@link" , "/", "@tool" ]
+            my_toolbar_2: [ "@wanted" ]
+        items:
+            document: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Image', 'Link', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak' ]
+            link: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat', 'NumberedList', 'BulletedList', '-',
+                    'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ]
+            tool: [ 'Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor', 'Maximize', 'ShowBlocks' ]
+            wanted: [ 'BulletedList' ]
 
 twig:
     form_themes:
