@@ -63,6 +63,23 @@ class UserManager
     }
 
     /**
+     * @return array
+     */
+    public function findEmailUsers(): array
+    {
+        $userEmail = [];
+        $users = $this->userRepository->findAll();
+
+        foreach ($users as $user){
+            $userEmail[] = $user->getEmail();
+        }
+        return $userEmail;
+
+    }
+
+
+
+    /**
      * @param User $user
      *
      * @throws \Exception
