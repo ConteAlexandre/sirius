@@ -1,0 +1,47 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  UserAdmin:
+    class: App\Admin\UserAdmin
+    arguments: [ ~, App\Entity\User, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: User, group: Users }
+
+  IdeaBoxAdmin:
+    class: App\Admin\IdeaBoxAdmin
+    arguments: [ ~, App\Entity\IdeaBox, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: IdeaBox, group: IdeaBox }
+
+  LinkResgitrationAdmin:
+    class: App\Admin\LinkRegistrationAdmin
+    arguments: [ ~, App\Entity\LinkRegistration, App\Controller\Admin\LinkRegistrationAdminController ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: Link Registration, group: Users }
+
+  AperitifAdmin:
+    class: App\Admin\AperitifAdmin
+    arguments: [ ~, App\Entity\Aperitif, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: Aperitif, group: Aperitif }
+
+  SkillAdmin:
+    class: App\Admin\SkillAdmin
+    arguments: [ ~, App\Entity\Skill, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: Skill, group: Skill }
+
+  CompanyActivityAdmin:
+    class: App\Admin\CompanyActivityAdmin
+    arguments: [ ~, App\Entity\CompanyActivity, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: CompanyActivity, group: CompanyActivity }
+
+  PostAdmin:
+    class: App\Admin\PostAdmin
+    arguments: [ ~, App\Entity\Post, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: Post, group: Post }
