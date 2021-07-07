@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EnabledEntityTrait;
 use App\Repository\SkillRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,7 +17,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Skill
 {
     use TimestampableEntity,
-        BlameableEntity;
+        BlameableEntity,
+        EnabledEntityTrait;
 
     /**
      * @var int
