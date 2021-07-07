@@ -6,9 +6,12 @@ use App\Repository\LinkRegistrationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LinkRegistrationRepository::class)
+ * @UniqueEntity(fields={"email"}, message="Cet email est déjà existant et ne peut pas être réutilisé")
  */
 class LinkRegistration
 {
@@ -23,6 +26,15 @@ class LinkRegistration
     private $id;
 
     /**
+     * @Assert\NotBlank(message="L'email ne peut être nul")
+     * @Assert\Email(message="L'email n'est pas valide")
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="L'email doit faire minimum 8 caractères",
+     *     max="50",
+     *     maxMessage="L'emil ne doit pas contenir plus de 50 caractères"
+     * )
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $email;

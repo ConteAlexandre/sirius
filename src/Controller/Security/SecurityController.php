@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/api/register/{selector}/{validator}", name="register", methods={"POST", "GET"})
+     * @Route("/register/{selector}/{validator}", name="register", methods={"POST", "GET"})
      * @ParamConverter("link_registration", options={"selector" = "selector"})
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
@@ -56,16 +56,5 @@ class SecurityController extends AbstractController
         $userManager->save($user);
 
         return new JsonResponse('User created');
-    }
-
-    /**
-     * @Route("/api/login", name="api_login", methods={"POST"})
-     */
-    public function login(AuthenticationUtils $authenticationUtils)
-    {
-        $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return new JsonResponse([$lastUsername, $error]);
     }
 }

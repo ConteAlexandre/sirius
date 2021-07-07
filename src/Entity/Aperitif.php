@@ -7,6 +7,7 @@ use App\Repository\AperitifRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AperitifRepository::class)
@@ -29,12 +30,16 @@ class Aperitif
     /**
      * @var \DateTime
      *
+     * @Assert\DateTime(message="La valeur rentrée doit être une date")
+     *
      * @ORM\Column(type="datetime", name="date")
      */
     private $date;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Le commentaire ne peut être vide")
      *
      * @ORM\Column(type="text", name="comment")
      */

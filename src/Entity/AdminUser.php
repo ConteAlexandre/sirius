@@ -31,7 +31,10 @@ class AdminUser implements UserInterface
     private $id;
 
     /**
-     * @Assert\NotBlank()
+     * @var string
+     *
+     * @Assert\NotBlank(message="L'email ne doit pas être nul")
+     * @Assert\Email(message="L'email n'est pas valide")
      * @Assert\Length(
      *     min="8",
      *     minMessage="L'email doit faire minimum 8 caractères",
@@ -44,11 +47,12 @@ class AdminUser implements UserInterface
     private $email;
 
     /**
+     * @Assert\NotBlank(message="Le prénom ne doit pas être nul")
      * @Assert\Length(
      *     min="8",
-     *     minMessage="L'email doit faire minimum 8 caractères",
+     *     minMessage="Le prénom doit faire minimum 8 caractères",
      *     max="50",
-     *     maxMessage="L'emil ne doit pas contenir plus de 50 caractères"
+     *     maxMessage="Le prénom ne doit pas contenir plus de 50 caractères"
      * )
      *
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -56,11 +60,12 @@ class AdminUser implements UserInterface
     private $firstName;
 
     /**
+     * @Assert\NotBlank(message="Le nom de famille ne doit pas être nul")
      * @Assert\Length(
      *     min="8",
-     *     minMessage="L'email doit faire minimum 8 caractères",
+     *     minMessage="Le nom de famille doit faire minimum 8 caractères",
      *     max="50",
-     *     maxMessage="L'emil ne doit pas contenir plus de 50 caractères"
+     *     maxMessage="Le nom de famille ne doit pas contenir plus de 50 caractères"
      * )
      *
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -68,12 +73,12 @@ class AdminUser implements UserInterface
     private $lastName;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le champs username ne doit pas être nul")
      * @Assert\Length(
      *     min="8",
-     *     minMessage="L'email doit faire minimum 8 caractères",
+     *     minMessage="Le pseudo doit faire minimum 8 caractères",
      *     max="50",
-     *     maxMessage="L'emil ne doit pas contenir plus de 50 caractères"
+     *     maxMessage="Le pseudo ne doit pas contenir plus de 50 caractères"
      * )
      *
      * @ORM\Column(type="string", length=100)
@@ -88,6 +93,7 @@ class AdminUser implements UserInterface
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Le mot de passe ne doit pas être nul")
      * @PasswordRequirements(
      *     minLength=8,
      *     requireNumbers=true,
