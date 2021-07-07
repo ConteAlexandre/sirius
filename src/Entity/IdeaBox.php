@@ -7,6 +7,7 @@ use App\Repository\IdeaBoxRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=IdeaBoxRepository::class)
@@ -28,6 +29,12 @@ class IdeaBox
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Le contenu ne doit pas être nul")
+     * @Assert\Length(
+     *     min="20",
+     *     minMessage="Le contenu doit faire minimum 20 caractères",
+     * )
      *
      * @ORM\Column(type="text", name="content")
      */

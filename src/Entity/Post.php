@@ -7,6 +7,7 @@ use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -29,12 +30,26 @@ class Post
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Le titre ne doit pas être vide")
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Le titre doit contenir au moins 8 caractères",
+     *     max="50",
+     *     maxMessage="Le titre doit contenir 50 caractères maximum",
+     * )
+     *
      * @ORM\Column(type="string", length=100, name="title")
      */
     private $title;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Le contenu ne doit pas être nul")
+     * @Assert\Length(
+     *     min="20",
+     *     maxMessage="Le contenu doit faire au moins 20 caractères",
+     * )
      *
      * @ORM\Column(type="text", name="content")
      */

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SkillRepository::class)
@@ -28,6 +29,14 @@ class Skill
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Le nom ne peut être nul")
+     * @Assert\Length(
+     *     min="5",
+     *     minMessage="Le nom de l'activité doit faire minimum 5 caractères",
+     *     max="50",
+     *     maxMessage="Le nom de l'áctivité doit faire maximum 50 caractères",
+     * )
      *
      * @ORM\Column(type="string", length=100, name="name")
      */

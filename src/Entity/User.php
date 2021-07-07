@@ -13,6 +13,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as Serializer;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordRequirements;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -39,6 +40,14 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Le champs username ne doit pas être nul")
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Le pseudo doit faire minimum 8 caractères",
+     *     max="100",
+     *     maxMessage="Le pseudo ne doit pas contenir plus de 100 caractères"
+     * )
+     *
      * @Serializer\Groups(groups="users")
      *
      * @ORM\Column(type="string", length=100, name="username")
@@ -46,21 +55,49 @@ class User implements UserInterface
     private $username;
 
     /**
+     * @var string
+     *
+     * @Assert\NotBlank(message="Le prénom ne doit pas être nul")
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Le prénom doit faire minimum 8 caractères",
+     *     max="100",
+     *     maxMessage="Le prénom ne doit pas contenir plus de 100 caractères"
+     * )
+     *
      * @Serializer\Groups(groups="users")
      *
-     * @ORM\Column(type="string", length=150, name="first_name")
+     * @ORM\Column(type="string", length=100, name="first_name")
      */
     private $firstName;
 
     /**
+     * @var string
+     *
+     * @Assert\NotBlank(message="Le nom de famille ne doit pas être nul")
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Le nom de famille doit faire minimum 8 caractères",
+     *     max="100",
+     *     maxMessage="Le nom de famille ne doit pas contenir plus de 100 caractères"
+     * )
+     *
      * @Serializer\Groups(groups="users")
      *
-     * @ORM\Column(type="string", length=150, name="last_name")
+     * @ORM\Column(type="string", length=100, name="last_name")
      */
     private $lastName;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Le nom de la company ne doit pas être nul")
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Le nom de la company doit faire minimum 8 caractères",
+     *     max="100",
+     *     maxMessage="Le nom de la company ne doit pas contenir plus de 100 caractères"
+     * )
      *
      * @Serializer\Groups(groups="users")
      *
@@ -79,9 +116,18 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="L'email ne doit pas être nul")
+     * @Assert\Email(message="L'email n'est pas valide")
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="L'email doit faire minimum 8 caractères",
+     *     max="100",
+     *     maxMessage="L'emil ne doit pas contenir plus de 100 caractères"
+     * )
+     *
      * @Serializer\Groups(groups="users")
      *
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=100)
      */
     private $email;
 
@@ -94,6 +140,14 @@ class User implements UserInterface
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Le champs boisson ne peut être nul")
+     * @Assert\Length(
+     *     min="3",
+     *     minMessage="Le champs boisson doit faire au moins 3 caractères",
+     *     max="80",
+     *     maxMessage="Le champs boisson doit contenir 80 caractères maximum",
+     * )
      *
      * @Serializer\Groups(groups="users")
      *
@@ -111,6 +165,7 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Le champs mot de passe ne doit pas être nul")
      * @PasswordRequirements(
      *     minLength=8,
      *     requireNumbers=true,

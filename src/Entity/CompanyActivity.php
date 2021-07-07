@@ -10,9 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CompanyActivityRepository::class)
+ * @UniqueEntity(fields={"name"}, message="Le nom {{ value }} est déjà utilisé")
  */
 class CompanyActivity
 {
@@ -31,6 +34,14 @@ class CompanyActivity
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Le champs name ne doit pas être nul")
+     * @Assert\Length(
+     *     min="5",
+     *     minMessage="Le nom de l'activité doit faire minimum 5 caractères",
+     *     max="50",
+     *     maxMessage="Le nom de l'áctivité doit faire maximum 50 caractères",
+     * )
      *
      * @Serializer\Groups(groups="users")
      *
