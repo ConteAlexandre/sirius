@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class ChatController
- * @Route("/chat")
+ * @Route("/api/chat")
  */
 class ChatController extends AbstractController
 {
