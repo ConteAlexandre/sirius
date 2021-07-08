@@ -106,10 +106,19 @@ class User implements UserInterface
     private $company;
 
     /**
+     * @var string
+     *
+     * @Assert\NotBlank(message="Le nom de la company ne doit pas être nul")
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Le nom de la company doit faire minimum 8 caractères",
+     *     max="100",
+     *     maxMessage="Le nom de la company ne doit pas contenir plus de 100 caractères"
+     * )
+     *
      * @Serializer\Groups(groups="users")
      *
-     * @ORM\ManyToOne(targetEntity=CompanyActivity::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=100, name="company_activity")
      */
     private $companyActivity;
 
